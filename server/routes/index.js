@@ -47,7 +47,7 @@ router.post('/child/:childId/imgProfile', imageUpload, child.uploadProfile);
 router.post('/child/:childId/gallery', imageUpload, child.uploadGallery);
 
 /** Denuncia */
-router.get('/denuncia', denuncia.getAll);
+router.post('/denunciaAll', denuncia.getAll);
 
 router
   .route('/denuncia')
