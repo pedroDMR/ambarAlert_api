@@ -76,4 +76,9 @@ router.post('/persona', user.consultaPersona);
 
 router.post('/estados', user.consultaEstado);
 
+router.post('/denunciaChild', denuncia.consultaDenuncia);
+
+router.post('/dependncias', denuncia.consultaDependencia);
+
+
 export default router;

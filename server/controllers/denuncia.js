@@ -138,7 +138,7 @@ const changeStatus = async (req, res) => {
     });
 
     if (!status) return res.status(404).send('Estatus not found');
-
+    denuncia.amberStatus = false;
     denuncia.estatusId = status.id;
     await denuncia.save();
 
@@ -178,6 +178,10 @@ const setToAmber = async (req, res) => {
       denuncia.amberStatus = true;
       await denuncia.save();
       res.send(associationCreated);
+    } else {
+      denuncia.amberStatus = true;
+      await denuncia.save();
+      res.send(denuncia);
     }
 
     res.status(400).send('Item has already been set to amber alert');
@@ -187,4 +191,33 @@ const setToAmber = async (req, res) => {
   }
 };
 
-export { getAll, createDenuncia, updateDenuncia, changeStatus, setToAmber };
+const consultaDenuncia = async (req, res) => {
+  try {
+    const { body } = req;
+    const denuncia = await models.Denuncia.findOne({
+      include: [
+        { model: models.Dependencia }
+      ],
+      where: {
+        hijoId: body.Id
+      }
+    });
+    res.send(denuncia);
+  } catch (error) {
+    logger.error(error);
+    res.status(500).send(false);
+  }
+};
+
+const consultaDependencia = async (req, res) => {
+  try {
+    const { body } = req;
+    const dependencia = await models.Dependencia.findAll({});
+    res.send(dependencia);
+  } catch (error) {
+    logger.error(error);
+    res.status(500).send(false);
+  }
+};
+
+export { getAll, createDenuncia, updateDenuncia, changeStatus, setToAmber, consultaDenuncia, consultaDependencia };
