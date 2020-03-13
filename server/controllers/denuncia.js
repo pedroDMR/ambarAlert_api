@@ -179,7 +179,8 @@ const setToAmber = async (req, res) => {
       await denuncia.save();
       res.send(associationCreated);
     } else {
-      denuncia.amberStatus = true;
+      denuncia.amberStatus = true;    
+      denuncia.estatusId = 2;
       await denuncia.save();
       res.send(denuncia);
     }
